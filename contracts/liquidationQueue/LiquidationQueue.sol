@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: UNLICENSED
-pragma solidity 0.8.9;
+pragma solidity ^0.8.0;
 
 import '@boringcrypto/boring-solidity/contracts/ERC20.sol';
 import '../mixologist/Mixologist.sol';
@@ -335,8 +335,8 @@ contract LiquidationQueue {
 
         // Clean expired bids.
         for (uint256 i = 0; i < bidIndexesLen; ) {
-            if (bidIndexes[i] > poolInfo.nextBidPull) {
-                bidIndexesLen = bidIndexes.length;
+            if (bidIndexes[i] < poolInfo.nextBidPull) {
+                // BUG: if bidIndex < poolInfo.nextBidPull, the bid has already been executed & ENHANCEMENT: bidIndexesLen was already declared
                 bidIndexes[i] = bidIndexes[bidIndexesLen - 1];
                 bidIndexes.pop();
             }
@@ -353,7 +353,7 @@ contract LiquidationQueue {
         ];
 
         // Remove userBidIndex
-        bidIndexesLen = bidIndexes.length;
+        // ENHANCEMENT: bidIndexesLen was already declared
         bidIndexes[bidPosition] = bidIndexes[bidIndexesLen - 1];
         bidIndexes.pop();
 

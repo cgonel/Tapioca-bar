@@ -25,7 +25,7 @@ const config: HardhatUserConfig = {
                 },
             },
             {
-                version: '0.8.9',
+                version: '0.8.15',
                 settings: {
                     optimizer: {
                         enabled: true,
@@ -36,7 +36,7 @@ const config: HardhatUserConfig = {
         ],
         overrides: {
             'contracts/mixologist/Mixologist.sol': {
-                version: '0.8.9',
+                version: '0.8.15',
                 settings: {
                     optimizer: {
                         enabled: true,
@@ -61,7 +61,9 @@ const config: HardhatUserConfig = {
                               balance: '1000000000000000000000000',
                           },
                       ]
-                    : [],
+                    : {
+                          count: 1000,
+                      },
         },
         rinkeby: {
             gasMultiplier: 2,
